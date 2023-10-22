@@ -1,0 +1,16 @@
+run = "cargo test"
+
+[nix]
+channel = "stable-23_05"
+
+[gitHubImport]
+requiredFiles = [".replit"]
+
+[env]
+CARGO_HOME = "$REPL_HOME/.cargo"
+
+[langauges.rust]
+pattern = "**/*.rs"
+
+[languages.rust.languageServer]
+start = "rust-analyzer"
