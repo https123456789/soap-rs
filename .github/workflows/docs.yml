@@ -9,6 +9,7 @@ env:
 jobs:
   update_docs:
     runs-on: ubuntu-latest
+    permissions: write-all
     steps:
       - uses: actions/checkout@v4
       - name: Build Docs
