@@ -1,7 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- Sourced from Wikipedia -->
 <!-- https://en.wikipedia.org/wiki/Web_Services_Description_Language#Example_WSDL_file -->
 
-<?xml version="1.0" encoding="UTF-8"?>
 <description xmlns="http://www.w3.org/ns/wsdl"
     xmlns:tns="http://www.tmsws.com/wsdl20sample"
     xmlns:whttp="http://schemas.xmlsoap.org/wsdl/http/"

@@ -64,7 +64,11 @@ impl WsdlDocument {
     ///
     /// # Example
     /// ```rust
-    /// let api_description = WsdlDocument::new(path_to_my_file);
+    /// use std::path::Path;
+    /// use soap_rs::wsdl::WsdlDocument;
+    ///
+    /// let api_description = WsdlDocument::new(Path::new("test-data/wsdl_sample_1.xml"))
+    ///     .expect("Failed to create document");
     /// ```
     pub fn new(path: &Path) -> Result<Self, WsdlError> {
         Ok(Self {
@@ -86,7 +90,11 @@ impl WsdlDocument {
     ///
     /// # Example
     /// ```rust
-    /// let api_description = WsdlDocument::new(path_to_my_file);
+    /// use std::path::Path;
+    /// use soap_rs::wsdl::WsdlDocument;
+    ///
+    /// let mut api_description = WsdlDocument::new(Path::new("test-data/wsdl_sample_1.xml"))
+    ///     .expect("Failed to create document");
     /// if let Err(e) = api_description.parse() {
     ///     eprintln!("Failed to parse WSDL: {}", e);
     /// }
