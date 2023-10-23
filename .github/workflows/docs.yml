@@ -1,31 +1,58 @@
-name: Update Docs
+name: Deploy Docs to GitHub Pages
+
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
 
 env:
   CARGO_TERM_COLOR: always
 
+# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
+# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
 jobs:
-  update_docs:
+  build:
     runs-on: ubuntu-latest
-    permissions: write-all
     steps:
-      - uses: actions/checkout@v4
-      - name: Build Docs
-        run: cargo doc -j$(nproc) --release --verbose --no-deps
+      - name: Install Rustup
+        run: curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+      - name: Build docs
+        run: cargo docs -j$(nproc) --release --no-deps --verbose
       - name: Add base index file
         run: |
           echo "<meta http-equiv=\"refresh\" content=\"0; url=soap_rs\">" > target/doc/index.html
-      - name: Clean
+      - name: Create Zip Archive
         run: |
-          find . | grep -vwe 'target\|\.git\|\.cargo\|\.gitignore' | grep -vxF . | xargs rm -rf
-      - name: Commit
-        uses: test-room-7/action-update-file@v1
+          cd target/doc
+          chmod a+rwx * .* */**
+          zip -umr9 github-pages.zip .
+          mv github-pages.zip ../..
+      - name: Create GZipped Tarball Archive
+        run: tar -czvf github-pages.tar.gz github-pages.zip
+      - name: Upload Pages Artifact
+        uses: actions/upload-pages-artifact@v2
         with:
-            file-path: target/doc/**/*
-            commit-msg: 'ci(docs): update docs'
-            branch: docs
-            allow-dot: true
-            allow-removing: true
-            github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: .
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup Pages
+        uses: actions/configure-pages@v3
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
