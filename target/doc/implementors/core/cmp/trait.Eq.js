@@ -1,0 +1,3 @@
+(function() {var implementors = {
+"soap_rs":[["impl <a class=\"trait\" href=\"https://doc.rust-lang.org/1.73.0/core/cmp/trait.Eq.html\" title=\"trait core::cmp::Eq\">Eq</a> for <a class=\"struct\" href=\"soap_rs/wsdl/struct.WsdlType.html\" title=\"struct soap_rs::wsdl::WsdlType\">WsdlType</a>"],["impl <a class=\"trait\" href=\"https://doc.rust-lang.org/1.73.0/core/cmp/trait.Eq.html\" title=\"trait core::cmp::Eq\">Eq</a> for <a class=\"enum\" href=\"soap_rs/wsdl/enum.WsdlVersion.html\" title=\"enum soap_rs::wsdl::WsdlVersion\">WsdlVersion</a>"]]
+};if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()
