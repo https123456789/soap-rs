@@ -26,7 +26,7 @@ jobs:
       - name: Install Rustup
         run: curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
       - name: Build docs
-        run: cargo docs -j$(nproc) --release --no-deps --verbose
+        run: cargo doc -j$(nproc) --release --no-deps --verbose
       - name: Add base index file
         run: |
           echo "<meta http-equiv=\"refresh\" content=\"0; url=soap_rs\">" > target/doc/index.html
