@@ -18,7 +18,7 @@ jobs:
           echo "<meta http-equiv=\"refresh\" content=\"0; url=build_wheel\">" > target/doc/index.html
       - name: Clean
         run: |
-          find . | grep -vw 'target\|.git\|.cargo\|.gitignore' | xargs rm -rf
+          find . | grep -vw 'target\|.git\|.cargo\|.gitignore' | xargs rm -rf 2>&1 | echo
       - name: Commit
         uses: test-room-7/action-update-file@v1
         with:
