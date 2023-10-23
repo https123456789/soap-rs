@@ -24,6 +24,7 @@ pub struct WsdlDocument {
     pub parsed: bool,
 
     /// Stores the WSDL version
+    ///
     /// Note: until the document has been parsed, there is no guarentee that the value stored in
     /// this field is correct
     pub version: WsdlVersion,
@@ -86,7 +87,7 @@ impl WsdlDocument {
     ///
     /// Some special behavior should be noted:
     /// - When determining the WSDL document's version, if there is an error or an unsupported
-    ///   is found, the parser will fall back onto version (WsdlVersion::Wsdl11)[1.1]
+    ///   is found, the parser will fall back onto version [WsdlVersion::Wsdl11](1.1)
     ///
     /// # Example
     /// ```rust
