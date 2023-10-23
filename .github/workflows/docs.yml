@@ -19,7 +19,7 @@ jobs:
           echo "<meta http-equiv=\"refresh\" content=\"0; url=soap_rs\">" > target/doc/index.html
       - name: Clean
         run: |
-          find . | grep -vw 'target\|.git\|.cargo\|.gitignore' | xargs rm -rf; true
+          find . | grep -vwe 'target\|\.git\|\.cargo\|\.gitignore' | grep -vxF . | xargs rm -rf
       - name: Commit
         uses: test-room-7/action-update-file@v1
         with:
