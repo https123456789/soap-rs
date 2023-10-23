@@ -16,14 +16,14 @@ jobs:
         run: cargo doc -j$(nproc) --release --verbose --no-deps
       - name: Add base index file
         run: |
-          echo "<meta http-equiv=\"refresh\" content=\"0; url=build_wheel\">" > target/doc/index.html
+          echo "<meta http-equiv=\"refresh\" content=\"0; url=soap_rs\">" > target/doc/index.html
       - name: Clean
         run: |
           find . | grep -vw 'target\|.git\|.cargo\|.gitignore' | xargs rm -rf 2>&1 | echo
       - name: Commit
         uses: test-room-7/action-update-file@v1
         with:
-            file-path: target/doc/*
+            file-path: target/doc/**/*
             commit-msg: 'ci(docs): update docs'
             branch: docs
             allow-dot: true
