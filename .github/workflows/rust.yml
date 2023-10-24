@@ -8,11 +8,32 @@ on:
 
 env:
   CARGO_TERM_COLOR: always
+  RUSTFLAGS: "-C instrument-coverage=all"
 
 jobs:
   test:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
+      with:
+        ref: ${{ github.event.pull_request.head.sha }}
+    - name: Install
+      run: |
+        sudo apt install -y openssl-devel libssl-devel llvm
+        cargo install rustfilt grcov
+        rustup component add llvm-tools-preview
     - name: Run tests
-      run: cargo test --release -j$(nproc) --verbose
+      run: |
+        cargo test --verbose
+        grcov . -s . --binary-path ./target/debug/ -t lcov --branch --ignore-not-existing -o ./target/debug/
+        ls -lahR target
+    - name: Report results to DeepSource
+      run: |
+        # Tests have finished and a test coverage report is available
+        # Install deepsource CLI
+        curl https://deepsource.io/cli | sh
+        # From the root directory, run the report coverage command
+        ./bin/deepsource report --analyzer test-coverage --key rust --value-file ./target/debug/lcov
+  
+      env:
+        DEEPSOURCE_DSN: ${{ secrets.DEEPSOURCE_DSN }}
