@@ -1,0 +1,14 @@
+version = 1
+
+test_patterns = ["tests/*.rs"]
+
+exclude_patterns = ["target/**/*"]
+
+[[analyzers]]
+name = "test-coverage"
+
+[[analyzers]]
+name = "rust"
+
+  [analyzers.meta]
+  msrv = "stable"
