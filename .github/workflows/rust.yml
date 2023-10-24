@@ -26,7 +26,6 @@ jobs:
       run: |
         cargo test --verbose
         grcov . -s . --binary-path ./target/debug/ -t lcov --branch --ignore-not-existing -o ./target/debug/
-        ls -lahR target
     - name: Report results to DeepSource
       run: |
         # Tests have finished and a test coverage report is available
