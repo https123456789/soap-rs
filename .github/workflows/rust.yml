@@ -19,7 +19,7 @@ jobs:
         ref: ${{ github.event.pull_request.head.sha }}
     - name: Install
       run: |
-        sudo apt install -y openssl-devel libssl-devel llvm
+        sudo apt install -y libssl-dev llvm
         cargo install rustfilt grcov
         rustup component add llvm-tools-preview
     - name: Run tests
